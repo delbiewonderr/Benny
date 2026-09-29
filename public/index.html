@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4efe6">
+<meta name="description" content="Benny is Delbie's friendly planner for keeping today's tasks simple and organized.">
+<title>Benny | Your friendly planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4efe6;--card:#fffdf9;--ink:#282d26;--mute:#77776e;--line:#e5ddcf;--gold:#d1a760;--goldink:#302511;--hi:#bc6557;--med:#d1a760;--lo:#6f9279;--over:#a84d41;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a1f;--card:#1d262d;--ink:#e8eef2;--mute:#8d9ca6;--line:#2c3841;--over:#ff7b6b}}
+:root[data-theme="dark"]{--bg:#141a1f;--card:#1d262d;--ink:#e8eef2;--mute:#8d9ca6;--line:#2c3841;--over:#ff7b6b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+main{max-width:1040px;margin:0 auto;padding:24px 24px 72px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px}
+.brand{font-size:.83rem;font-weight:800;letter-spacing:.14em}
+.top a,.hero a{color:inherit;text-decoration:none}
+.top .nav-cta{border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:999px;font-size:.9rem;font-weight:700}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:32px;padding:30px 0 76px}
+.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:800;color:#927443}
+.hero h1{max-width:660px;margin:14px 0 16px;font-size:clamp(3rem,7vw,5.7rem);line-height:.99;letter-spacing:-.065em}
+.hero p{max-width:520px;margin:0;color:var(--mute);font-size:1.08rem}
+.hero-actions{display:flex;align-items:center;gap:16px;margin-top:28px}
+.hero .primary{display:inline-flex;padding:13px 21px;border-radius:999px;text-decoration:none}
+.soft-note{max-width:220px;color:var(--mute);font-size:.82rem}
+.hero-card{min-height:270px;padding:30px;border-radius:26px;background:#e8ddc9;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.hero-card:after{content:"";position:absolute;width:210px;height:210px;border:1px solid #cbbb9e;border-radius:50%;right:-55px;top:-72px;box-shadow:0 0 0 24px #e8ddc9,0 0 0 25px #cbbb9e,0 0 0 52px #e8ddc9,0 0 0 53px #cbbb9e}
+.hero-card .quote{position:relative;z-index:1;font-size:1.65rem;line-height:1.18;font-weight:700;max-width:270px;letter-spacing:-.035em}
+.hero-card .signature{position:relative;z-index:1;font-size:.86rem;color:#6e6658}
+.planner{scroll-margin-top:22px;max-width:760px;margin:0 auto;padding:34px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 60px #392b1610}
+.planner-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px}
+.planner-head h2{margin:4px 0 0;font-size:2rem;letter-spacing:-.04em}
+.planner-welcome{display:flex;align-items:center;gap:14px;min-width:0}
+.planner-mascot{display:block;width:64px;height:64px;flex:none}
+.planner-copy{min-width:0}
+.planner-head p{margin:0;color:var(--mute)}
+.planner-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:#927443;font-weight:800}
+.notice{display:none;margin:0 0 14px;padding:10px 13px;border-radius:9px;background:#f9e9e5;color:#8d382d;font-size:.9rem}
+.notice.show{display:block}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:0 0 20px}
+.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+form{display:grid;grid-template-columns:1fr auto;gap:8px;background:var(--card);padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:16px}
+form .opts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
+input,select,button{font:inherit;color:inherit}
+input,select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+#title{font-size:1.05rem}
+.opts input[type=text]{flex:1 1 120px}
+.primary{background:var(--gold);color:var(--goldink);border:0;border-radius:8px;padding:8px 18px;font-weight:800;cursor:pointer}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{background:var(--card);border:0;padding:6px 12px}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.filters input[type=search]{flex:1 1 140px}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+li{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--med);border-radius:10px;padding:10px 12px}
+li.high{border-left-color:var(--hi)}li.low{border-left-color:var(--lo)}
+li input[type=checkbox]{width:20px;height:20px;margin-top:2px;accent-color:var(--lo);flex:none}
+.body{flex:1;min-width:0}
+.t{font-weight:600;overflow-wrap:anywhere}
+li.done .t{text-decoration:line-through;color:var(--mute)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;font-size:.85rem;color:var(--mute)}
+.chip{background:var(--bg);border-radius:999px;padding:1px 9px}
+.over{color:var(--over);font-weight:600}
+.del{background:none;border:0;color:var(--mute);font-size:1.2rem;line-height:1;padding:2px 6px;border-radius:6px}
+.del:hover{color:var(--over)}
+.edit{width:100%;font-weight:600}
+.empty{text-align:center;color:var(--mute);padding:32px 12px;border:2px dashed var(--line);border-radius:12px}
+footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:var(--mute)}
+footer button{background:none;border:0;text-decoration:underline;color:var(--mute)}
+.bar i{background:#8b9c7a}
+@media (max-width:700px){.hero{grid-template-columns:1fr;padding:16px 0 42px}.hero-card{min-height:190px}.top{margin-bottom:28px}.planner{padding:24px 18px}.planner-head{display:block}.planner-head p{margin-top:8px}}
+@media (max-width:480px){form{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<nav class="top"><a class="brand" href="#top">BENNY</a><a class="nav-cta" href="#planner">Go to my planner&nbsp; ↘</a></nav>
+<section class="hero" id="top">
+  <div><div class="eyebrow">Your friendly little planner</div><h1>A little help with your day.</h1><p>Keep your plans in one place, choose what matters most, and take things one step at a time. Benny's here to help.</p><div class="hero-actions"><a class="primary" href="#planner">Let's plan today&nbsp; ↘</a><span class="soft-note">No rush. One thing at a time.</span></div></div>
+  <div class="hero-card"><div class="quote">“You've got this, Delbie. Let's take today one thing at a time.”</div><div class="signature">A little encouragement from Benny</div></div>
+</section>
+
+<section class="planner" id="planner" aria-labelledby="planner-title">
+<div class="planner-head"><div class="planner-welcome"><svg class="planner-mascot" viewBox="0 0 56 56" role="img" aria-label="Benny mascot"><circle cx="14" cy="14" r="7" fill="#F5B82E" stroke="#5a3a10" stroke-width="2"/><circle cx="42" cy="14" r="7" fill="#F5B82E" stroke="#5a3a10" stroke-width="2"/><ellipse cx="28" cy="31" rx="21" ry="19" fill="#F5B82E" stroke="#5a3a10" stroke-width="2"/><ellipse cx="28" cy="38" rx="9" ry="6.5" fill="#FFE9A8" stroke="#5a3a10" stroke-width="2"/><circle cx="19" cy="26" r="3" fill="#5a3a10"/><circle cx="37" cy="26" r="3" fill="#5a3a10"/><ellipse cx="28" cy="35" rx="2.5" ry="1.8" fill="#5a3a10"/><path d="M23 41q5 4 10 0" fill="none" stroke="#5a3a10" stroke-width="2" stroke-linecap="round"/></svg><div class="planner-copy"><div class="planner-label">Benny's planner</div><h2 id="planner-title">Hey Delbie, what do you have to do today?</h2></div></div><p id="sub" aria-live="polite"></p></div>
+<div class="notice" id="notice" role="status"></div>
+<div class="bar" aria-hidden="true"><i id="prog"></i></div>
+
+<form id="add">
+<input id="title" type="text" placeholder="Add something you need to do…" aria-label="Task title" required autocomplete="off">
+<button class="primary" type="submit">Add to my list</button>
+<div class="opts">
+<select id="pri" aria-label="Priority"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select>
+<input id="date" type="date" aria-label="Due date">
+<input id="time" type="time" aria-label="Due time">
+<input id="tags" type="text" placeholder="tags, comma separated" aria-label="Tags">
+</div>
+</form>
+
+<div class="filters">
+<div class="seg" id="seg"><button data-s="all" aria-pressed="true">All</button><button data-s="active" aria-pressed="false">Active</button><button data-s="done" aria-pressed="false">Done</button></div>
+<select id="due" aria-label="Due filter"><option value="">Any due date</option><option value="today">Today</option><option value="upcoming">Upcoming</option><option value="overdue">Overdue</option></select>
+<input id="q" type="search" placeholder="Search…" aria-label="Search tasks">
+</div>
+
+<ul id="list"></ul>
+<footer><span id="left"></span><button id="clear" type="button">Clear completed</button></footer>
+</section>
+</main>
+
+<script>
+(function(){
+var tasks=[], status="all";
+function notice(message){var el=$("notice");el.textContent=message;el.classList.toggle("show",!!message)}
+function load(){return fetch("/api/tasks").then(function(r){if(!r.ok)throw new Error("Database unavailable");return r.json()}).then(function(d){tasks=d;notice("")}).catch(function(){tasks=[];notice("Your planner couldn't connect to the database. Check the server and refresh to try again.")})}
+function save(){return fetch("/api/tasks",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(tasks)}).then(function(r){if(!r.ok)throw new Error("Save failed");notice("")}).catch(function(){notice("Your changes couldn't be saved. Check the database connection and try again.")})}
+function $(id){return document.getElementById(id)}
+function today(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function isOver(t){if(t.done||!t.date)return false;return new Date(t.date+"T"+(t.time||"23:59"))<new Date()}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+var rank={high:0,medium:1,low:2};
+
+function visible(t){
+  if(status==="active"&&t.done)return false;
+  if(status==="done"&&!t.done)return false;
+  var f=$("due").value;
+  if(f==="today"&&t.date!==today())return false;
+  if(f==="upcoming"&&!(t.date&&t.date>today()))return false;
+  if(f==="overdue"&&!isOver(t))return false;
+  var q=$("q").value.toLowerCase().trim();
+  return !q||(t.title+" "+(t.tags||[]).join(" ")).toLowerCase().indexOf(q)>-1;
+}
+function render(){
+  var list=$("list"),vis=tasks.filter(visible).sort(function(a,b){
+    return (a.done-b.done)||((a.date||"9")+(a.time||"")).localeCompare((b.date||"9")+(b.time||""))||rank[a.priority]-rank[b.priority]});
+  list.innerHTML=vis.length?"":'<li class="empty" style="display:block;border-left-width:2px">'+(tasks.length?"No tasks match those filters. Try another one.":"Your list is clear. Add a task whenever you're ready.")+"</li>";
+  vis.forEach(function(t){
+    var li=document.createElement("li");li.className=t.priority+(t.done?" done":"");li.dataset.id=t.id;
+    var meta="";
+    if(t.date)meta+='<span class="'+(isOver(t)?"over":"")+'">'+(isOver(t)?"Overdue: ":"Due ")+t.date+(t.time?" "+t.time:"")+"</span>";
+    (t.tags||[]).forEach(function(g){meta+='<span class="chip">'+esc(g)+"</span>"});
+    li.innerHTML='<input type="checkbox" aria-label="Complete task"'+(t.done?" checked":"")+'><div class="body"><div class="t" title="Double-click to edit">'+esc(t.title)+'</div><div class="meta">'+meta+'</div></div><button class="del" aria-label="Delete task">×</button>';
+    list.appendChild(li);
+  });
+  var done=tasks.filter(function(t){return t.done}).length, left=tasks.length-done;
+  $("prog").style.width=(tasks.length?100*done/tasks.length:0)+"%";
+  $("left").textContent=left+(left===1?" task left":" tasks left");
+  $("sub").textContent=!tasks.length?"Ready when you are, Delbie.":left===0?"You did it—everything is done!":done?done+" done · "+left+" to go":left+(left===1?" task to go":" tasks to go");
+}
+$("add").addEventListener("submit",function(e){
+  e.preventDefault();var title=$("title").value.trim();if(!title)return;
+  tasks.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),title:title,priority:$("pri").value,date:$("date").value,
+    time:$("date").value?$("time").value:"",tags:$("tags").value.split(",").map(function(s){return s.trim()}).filter(Boolean),done:false});
+  $("title").value="";$("tags").value="";save();render();$("title").focus();
+});
+$("list").addEventListener("click",function(e){
+  var li=e.target.closest("li[data-id]");if(!li)return;var t=tasks.find(function(x){return x.id===li.dataset.id});
+  if(e.target.type==="checkbox"){t.done=e.target.checked;save();render()}
+  else if(e.target.classList.contains("del")){tasks=tasks.filter(function(x){return x!==t});save();render()}
+});
+$("list").addEventListener("dblclick",function(e){
+  var el=e.target.closest(".t");if(!el)return;var t=tasks.find(function(x){return x.id===el.closest("li").dataset.id});
+  var inp=document.createElement("input");inp.className="edit";inp.value=t.title;el.replaceWith(inp);inp.focus();
+  function done(ok){if(ok&&inp.value.trim())t.title=inp.value.trim();save();render()}
+  inp.addEventListener("keydown",function(k){if(k.key==="Enter")done(true);if(k.key==="Escape")done(false)});
+  inp.addEventListener("blur",function(){done(true)});
+});
+$("seg").addEventListener("click",function(e){
+  if(!e.target.dataset.s)return;status=e.target.dataset.s;
+  [].forEach.call($("seg").children,function(b){b.setAttribute("aria-pressed",b===e.target)});render();
+});
+$("due").addEventListener("change",render);$("q").addEventListener("input",render);
+$("clear").addEventListener("click",function(){tasks=tasks.filter(function(t){return !t.done});save();render()});
+load().then(render);setInterval(render,60000);
+})();
+</script>
+</body>
+</html>
